@@ -1,12 +1,41 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { RouterModule, Routes } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AlbumsModule } from './albums/albums.module';
+import { ArtistsModule } from './artists/artists.module';
 import { TypeormConfigService } from './config/typeorm-config.service';
+import { TracksModule } from './tracks/tracks.module';
+import { UsersModule } from './users/users.module';
+
+const routes: Routes = [
+    {
+        path: 'artists',
+        module: ArtistsModule
+    },
+    {
+        path: 'albums',
+        module: AlbumsModule
+    },
+    {
+        path: 'tracks',
+        module: TracksModule
+    },
+    {
+        path: 'users',
+        module: UsersModule
+    }
+];
 
 @Module({
     imports: [
         ConfigModule.forRoot({ isGlobal: true }),
-        TypeOrmModule.forRootAsync({ useClass: TypeormConfigService })
+        RouterModule.register(routes),
+        TypeOrmModule.forRootAsync({ useClass: TypeormConfigService }),
+        AlbumsModule,
+        ArtistsModule,
+        TracksModule,
+        UsersModule
     ]
 })
 export class AppModule { }
