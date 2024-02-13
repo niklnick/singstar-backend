@@ -28,6 +28,36 @@ export class UsersController {
     return await this.usersService.update(id, updateUserDto);
   }
 
+  @Patch(':id/save_artist/:artist_id')
+  async saveArtist(@Param('id') id: string, @Param('artist_id') artistId: string): Promise<User> {
+    return await this.usersService.saveArtist(id, artistId);
+  }
+
+  @Patch(':id/save_album/:album_id')
+  async saveAlbum(@Param('id') id: string, @Param('album_id') albumId: string): Promise<User> {
+    return await this.usersService.saveAlbum(id, albumId);
+  }
+
+  @Patch(':id/save_track/:track_id')
+  async saveTrack(@Param('id') id: string, @Param('track_id') trackId: string): Promise<User> {
+    return await this.usersService.saveTrack(id, trackId);
+  }
+
+  @Patch(':id/remove_artist/:artist_id')
+  async removeArtist(@Param('id') id: string, @Param('artist_id') artistId: string): Promise<User> {
+    return await this.usersService.removeArtist(id, artistId);
+  }
+
+  @Patch(':id/remove_album/:album_id')
+  async removeAlbum(@Param('id') id: string, @Param('album_id') albumId: string): Promise<User> {
+    return await this.usersService.removeAlbum(id, albumId);
+  }
+
+  @Patch(':id/remove_track/:track_id')
+  async removeTrack(@Param('id') id: string, @Param('track_id') trackId: string): Promise<User> {
+    return await this.usersService.removeTrack(id, trackId);
+  }
+
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<User> {
     return this.usersService.remove(id);
