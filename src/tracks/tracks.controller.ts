@@ -1,5 +1,6 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
 import { CreateTrackDto } from './dto/create-track.dto';
+import { QueryTrackDto } from './dto/query-track.dto';
 import { UpdateTrackDto } from './dto/update-track.dto';
 import { Track } from './entities/track.entity';
 import { TracksService } from './tracks.service';
@@ -14,8 +15,8 @@ export class TracksController {
   }
 
   @Get()
-  async findAll(): Promise<Track[]> {
-    return await this.tracksService.findAll();
+  async findAll(@Query() query: QueryTrackDto): Promise<Track[]> {
+    return await this.tracksService.findAll(query);
   }
 
   @Get(':id')

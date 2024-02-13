@@ -1,7 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { ArrayOverlap, ILike, Repository } from 'typeorm';
 import { CreateAlbumDto } from './dto/create-album.dto';
+import { QueryAlbumDto } from './dto/query-ablum.dto';
 import { UpdateAlbumDto } from './dto/update-album.dto';
 import { Album } from './entities/album.entity';
 
@@ -15,8 +16,12 @@ export class AlbumsService {
     return await this.albumsRepository.save(album);
   }
 
-  async findAll(): Promise<Album[]> {
+  async findAll(query: QueryAlbumDto): Promise<Album[]> {
     return await this.albumsRepository.find({
+      where: {
+        title: query.title ? ILike(`%${query.title}%`) : null,
+        genres: query.genres ? ArrayOverlap(query.genres) : null
+      },
       relations: { artist: true }
     });
   }

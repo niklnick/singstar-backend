@@ -1,6 +1,7 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
 import { AlbumsService } from './albums.service';
 import { CreateAlbumDto } from './dto/create-album.dto';
+import { QueryAlbumDto } from './dto/query-ablum.dto';
 import { UpdateAlbumDto } from './dto/update-album.dto';
 import { Album } from './entities/album.entity';
 
@@ -14,8 +15,8 @@ export class AlbumsController {
   }
 
   @Get()
-  async findAll(): Promise<Album[]> {
-    return await this.albumsService.findAll();
+  async findAll(@Query() query: QueryAlbumDto): Promise<Album[]> {
+    return await this.albumsService.findAll(query);
   }
 
   @Get(':id')

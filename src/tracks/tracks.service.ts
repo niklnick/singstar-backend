@@ -1,7 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { ArrayOverlap, ILike, Repository } from 'typeorm';
 import { CreateTrackDto } from './dto/create-track.dto';
+import { QueryTrackDto } from './dto/query-track.dto';
 import { UpdateTrackDto } from './dto/update-track.dto';
 import { Track } from './entities/track.entity';
 
@@ -15,8 +16,13 @@ export class TracksService {
     return await this.tracksRepository.save(track);
   }
 
-  async findAll(): Promise<Track[]> {
+  async findAll(query: QueryTrackDto): Promise<Track[]> {
     return await this.tracksRepository.find({
+      where: {
+        title: query.title ? ILike(`%${query.title}%`) : null,
+        genres: query.genres ? ArrayOverlap(query.genres) : null,
+        language: query.language
+      },
       relations: {
         artist: true,
         album: true
