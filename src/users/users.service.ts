@@ -21,33 +21,6 @@ export class UsersService {
     return await this.usersRepository.save(user);
   }
 
-  async findAll(): Promise<User[]> {
-    return await this.usersRepository.find();
-  }
-
-  async findOne(id: string): Promise<User> {
-    const user: User = await this.usersRepository.findOne({
-      where: { id: id },
-      relations: {
-        favouriteArtists: true,
-        favouriteAlbums: true,
-        favouriteTracks: true
-      }
-    });
-
-    if (!user) throw new NotFoundException();
-
-    return user;
-  }
-
-  async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
-    const user: User = await this.usersRepository.findOne({ where: { id: id } });
-
-    if (!user) throw new NotFoundException();
-
-    return await this.usersRepository.save({ ...user, ...updateUserDto });
-  }
-
   async saveArtist(id: string, artistId: string): Promise<User> {
     const user: User = await this.usersRepository.findOne({
       where: { id: id },
@@ -100,6 +73,41 @@ export class UsersService {
     user.favouriteTracks.push(track);
 
     return await this.usersRepository.save(user);
+  }
+
+  async findAll(): Promise<User[]> {
+    return await this.usersRepository.find();
+  }
+
+  async findOne(id: string): Promise<User> {
+    const user: User = await this.usersRepository.findOne({
+      where: { id: id },
+      relations: {
+        favouriteArtists: true,
+        favouriteAlbums: true,
+        favouriteTracks: true
+      }
+    });
+
+    if (!user) throw new NotFoundException();
+
+    return user;
+  }
+
+  async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
+    const user: User = await this.usersRepository.findOne({ where: { id: id } });
+
+    if (!user) throw new NotFoundException();
+
+    return await this.usersRepository.save({ ...user, ...updateUserDto });
+  }
+
+  async remove(id: string): Promise<User> {
+    const user: User = await this.usersRepository.findOne({ where: { id: id } });
+
+    if (!user) throw new NotFoundException();
+
+    return this.usersRepository.remove(user);
   }
 
   async removeArtist(id: string, artistId: string): Promise<User> {
@@ -157,13 +165,5 @@ export class UsersService {
       ...user,
       favouriteTracks: user.favouriteTracks.filter((t: Track) => t.id !== track.id)
     });
-  }
-
-  async remove(id: string): Promise<User> {
-    const user: User = await this.usersRepository.findOne({ where: { id: id } });
-
-    if (!user) throw new NotFoundException();
-
-    return this.usersRepository.remove(user);
   }
 }
