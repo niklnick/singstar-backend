@@ -47,10 +47,7 @@ export class AuthService {
         try {
             const usersRepository: Repository<User> = this.dataSource.getRepository(User);
 
-            const payload = await this.jwtService.verifyAsync(
-                refreshToken,
-                { secret: this.configService.get<string>('JWT_SECRET') }
-            );
+            const payload = await this.jwtService.verifyAsync(refreshToken);
 
             const user: User | null = await usersRepository.findOne({
                 where: { id: payload.sub }
@@ -69,17 +66,11 @@ export class AuthService {
             user: user,
             accessToken: await this.jwtService.signAsync(
                 { sub: user.id },
-                {
-                    secret: this.configService.get<string>('JWT_SECRET'),
-                    expiresIn: '60m'
-                }
+                { expiresIn: '60m' }
             ),
             refreshToken: await this.jwtService.signAsync(
                 { sub: user.id },
-                {
-                    secret: this.configService.get<string>('JWT_SECRET'),
-                    expiresIn: '24h'
-                }
+                { expiresIn: '24h' }
             )
         };
     }
