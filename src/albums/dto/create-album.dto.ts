@@ -7,5 +7,5 @@ export class CreateAlbumDto {
     readonly releaseDate: string;
     readonly artist: {
         readonly id: string;
-    }
+    };
 }

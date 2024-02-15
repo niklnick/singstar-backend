@@ -1,7 +1,8 @@
 import { Album } from "src/albums/entities/album.entity";
 import { Artist } from "src/artists/entities/artist.entity";
+import { Playlist } from "src/playlists/entities/playlist.entity";
 import { Track } from "src/tracks/entities/track.entity";
-import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class User {
@@ -11,30 +12,41 @@ export class User {
     @Column({ unique: true })
     email: string;
 
-    @Column()
+    @Column({ unique: true })
     username: string;
 
-    @ManyToMany(() => Artist)
-    @JoinTable({
-        name: 'user_artist_favourite',
-        joinColumn: { name: 'user_id' },
-        inverseJoinColumn: { name: 'artist_id' }
-    })
-    favouriteArtists: Artist[];
+    @OneToMany(() => Playlist, (playlist: Playlist) => playlist.creator)
+    createdPlaylists: Playlist[];
 
     @ManyToMany(() => Album)
     @JoinTable({
-        name: 'user_album_favourite',
+        name: 'user_album_favorite',
         joinColumn: { name: 'user_id' },
         inverseJoinColumn: { name: 'album_id' }
     })
-    favouriteAlbums: Album[];
+    favoriteAlbums: Album[];
+
+    @ManyToMany(() => Artist)
+    @JoinTable({
+        name: 'user_artist_favorite',
+        joinColumn: { name: 'user_id' },
+        inverseJoinColumn: { name: 'artist_id' }
+    })
+    favoriteArtists: Artist[];
+
+    @ManyToMany(() => Playlist)
+    @JoinTable({
+        name: 'user_playlist_favorite',
+        joinColumn: { name: 'user_id' },
+        inverseJoinColumn: { name: 'playlist_id' }
+    })
+    favoritePlaylists: Playlist[];
 
     @ManyToMany(() => Track)
     @JoinTable({
-        name: 'user_track_favourite',
+        name: 'user_track_favorite',
         joinColumn: { name: 'user_id' },
         inverseJoinColumn: { name: 'track_id' }
     })
-    favouriteTracks: Track[];
+    favoriteTracks: Track[];
 }

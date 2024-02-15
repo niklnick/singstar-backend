@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AlbumsModule } from './albums/albums.module';
 import { ArtistsModule } from './artists/artists.module';
 import { TypeormConfigService } from './config/typeorm-config.service';
+import { PlaylistsModule } from './playlists/playlists.module';
 import { TracksModule } from './tracks/tracks.module';
 import { UsersModule } from './users/users.module';
 
@@ -16,6 +17,10 @@ const routes: Routes = [
     {
         path: 'albums',
         module: AlbumsModule
+    },
+    {
+        path: 'playlists',
+        module: PlaylistsModule
     },
     {
         path: 'tracks',
@@ -34,6 +39,7 @@ const routes: Routes = [
         TypeOrmModule.forRootAsync({ useClass: TypeormConfigService }),
         AlbumsModule,
         ArtistsModule,
+        PlaylistsModule,
         TracksModule,
         UsersModule
     ]
