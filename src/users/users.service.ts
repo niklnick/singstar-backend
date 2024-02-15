@@ -31,10 +31,10 @@ export class UsersService {
     const user: User = await this.usersRepository.findOne({
       where: { id: id },
       relations: {
-        favoriteArtists: query.relations.favoriteArtists ?? false,
-        favoriteAlbums: query.relations.favoriteAlbums ?? false,
-        favoriteTracks: query.relations.favoriteTracks ?? false,
-        favoritePlaylists: query.relations.favoritePlaylists ?? false
+        favoriteArtists: query.relations?.favoriteArtists ?? false,
+        favoriteAlbums: query.relations?.favoriteAlbums ?? false,
+        favoriteTracks: query.relations?.favoriteTracks ?? false,
+        favoritePlaylists: query.relations?.favoritePlaylists ?? false
       }
     });
 
