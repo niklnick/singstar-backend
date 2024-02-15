@@ -15,6 +15,9 @@ export class User {
     @Column({ unique: true })
     username: string;
 
+    @Column({ select: false })
+    password: string;
+
     @OneToMany(() => Playlist, (playlist: Playlist) => playlist.creator)
     createdPlaylists: Playlist[];
 

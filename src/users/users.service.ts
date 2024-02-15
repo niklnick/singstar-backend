@@ -5,7 +5,6 @@ import { Artist } from 'src/artists/entities/artist.entity';
 import { Playlist } from 'src/playlists/entities/playlist.entity';
 import { Track } from 'src/tracks/entities/track.entity';
 import { DataSource, Repository } from 'typeorm';
-import { CreateUserDto } from './dto/create-user.dto';
 import { QueryUserDto } from './dto/query-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
@@ -16,12 +15,6 @@ export class UsersService {
     private readonly dataSource: DataSource,
     @InjectRepository(User) private readonly usersRepository: Repository<User>
   ) { }
-
-  async create(createUserDto: CreateUserDto): Promise<User> {
-    const user: User = this.usersRepository.create(createUserDto);
-
-    return await this.usersRepository.save(user);
-  }
 
   async findAll(): Promise<User[]> {
     return await this.usersRepository.find();
