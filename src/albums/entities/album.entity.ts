@@ -1,5 +1,4 @@
 import { Artist } from "src/artists/entities/artist.entity";
-import { Genre } from "src/enums/genre.enum";
 import { Track } from "src/tracks/entities/track.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
@@ -13,9 +12,6 @@ export class Album {
 
     @Column({ name: 'cover_url' })
     coverUrl: string;
-
-    @Column('enum', { array: true, enum: Genre })
-    genres: Genre[];
 
     @Column('date', { name: 'release_date' })
     releaseDate: Date;

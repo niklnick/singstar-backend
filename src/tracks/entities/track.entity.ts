@@ -28,13 +28,13 @@ export class Track {
     @Column('date', { name: 'release_date' })
     releaseDate: Date;
 
-    @ManyToOne(() => Album, (album: Album) => album.tracks)
-    @JoinColumn({ name: 'album_id' })
-    album: Album;
-
     @ManyToOne(() => Artist, (artist: Artist) => artist.tracks)
     @JoinColumn({ name: 'artist_id' })
     artist: Artist;
+
+    @ManyToOne(() => Album, (album: Album) => album.tracks)
+    @JoinColumn({ name: 'album_id' })
+    album: Album;
 
     @ManyToMany(() => Playlist, (playlist: Playlist) => playlist.tracks)
     playlists: Playlist[];

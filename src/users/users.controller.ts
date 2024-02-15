@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { Album } from 'src/albums/entities/album.entity';
 import { Artist } from 'src/artists/entities/artist.entity';
+import { Playlist } from 'src/playlists/entities/playlist.entity';
 import { Track } from 'src/tracks/entities/track.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { QueryUserDto } from './dto/query-user.dto';
@@ -37,16 +38,6 @@ export class UsersController {
     return this.usersService.remove(id);
   }
 
-  @Post(':id/albums/:album_id')
-  async addAlbum(@Param('id') id: string, @Param('album_id') albumId: string): Promise<Album[]> {
-    return await this.usersService.addAlbum(id, albumId);
-  }
-
-  @Delete(':id/albums/:album_id')
-  async removeAlbum(@Param('id') id: string, @Param('album_id') albumId: string): Promise<Album[]> {
-    return this.usersService.removeAlbum(id, albumId);
-  }
-
   @Post(':id/artists/:artist_id')
   async addArtist(@Param('id') id: string, @Param('artist_id') artistId: string): Promise<Artist[]> {
     return await this.usersService.addArtist(id, artistId);
@@ -57,6 +48,16 @@ export class UsersController {
     return this.usersService.removeArtist(id, artistId);
   }
 
+  @Post(':id/albums/:album_id')
+  async addAlbum(@Param('id') id: string, @Param('album_id') albumId: string): Promise<Album[]> {
+    return await this.usersService.addAlbum(id, albumId);
+  }
+
+  @Delete(':id/albums/:album_id')
+  async removeAlbum(@Param('id') id: string, @Param('album_id') albumId: string): Promise<Album[]> {
+    return this.usersService.removeAlbum(id, albumId);
+  }
+
   @Post(':id/tracks/:track_id')
   async addTrack(@Param('id') id: string, @Param('track_id') trackId: string): Promise<Track[]> {
     return await this.usersService.addTrack(id, trackId);
@@ -65,5 +66,15 @@ export class UsersController {
   @Delete(':id/tracks/:track_id')
   async removeTrack(@Param('id') id: string, @Param('track_id') trackId: string): Promise<Track[]> {
     return this.usersService.removeTrack(id, trackId);
+  }
+
+  @Post(':id/playlists/:playlist_id')
+  async addPlaylist(@Param('id') id: string, @Param('playlist_id') playlistId: string): Promise<Playlist[]> {
+    return await this.usersService.addPlaylist(id, playlistId);
+  }
+
+  @Delete(':id/playlists/:playlist_id')
+  async removePlayist(@Param('id') id: string, @Param('playlist_id') playlistId: string): Promise<Playlist[]> {
+    return this.usersService.removePlaylist(id, playlistId);
   }
 }

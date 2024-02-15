@@ -18,14 +18,6 @@ export class User {
     @OneToMany(() => Playlist, (playlist: Playlist) => playlist.creator)
     createdPlaylists: Playlist[];
 
-    @ManyToMany(() => Album)
-    @JoinTable({
-        name: 'user_album_favorite',
-        joinColumn: { name: 'user_id' },
-        inverseJoinColumn: { name: 'album_id' }
-    })
-    favoriteAlbums: Album[];
-
     @ManyToMany(() => Artist)
     @JoinTable({
         name: 'user_artist_favorite',
@@ -34,13 +26,13 @@ export class User {
     })
     favoriteArtists: Artist[];
 
-    @ManyToMany(() => Playlist)
+    @ManyToMany(() => Album)
     @JoinTable({
-        name: 'user_playlist_favorite',
+        name: 'user_album_favorite',
         joinColumn: { name: 'user_id' },
-        inverseJoinColumn: { name: 'playlist_id' }
+        inverseJoinColumn: { name: 'album_id' }
     })
-    favoritePlaylists: Playlist[];
+    favoriteAlbums: Album[];
 
     @ManyToMany(() => Track)
     @JoinTable({
@@ -49,4 +41,12 @@ export class User {
         inverseJoinColumn: { name: 'track_id' }
     })
     favoriteTracks: Track[];
+
+    @ManyToMany(() => Playlist)
+    @JoinTable({
+        name: 'user_playlist_favorite',
+        joinColumn: { name: 'user_id' },
+        inverseJoinColumn: { name: 'playlist_id' }
+    })
+    favoritePlaylists: Playlist[];
 }
