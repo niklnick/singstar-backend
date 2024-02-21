@@ -1,5 +1,5 @@
-import { Genre } from "src/enums/genre.enum";
-import { Language } from "src/enums/language.enum";
+import { Genre } from "src/tracks/enums/genre.enum";
+import { Language } from "src/tracks/enums/language.enum";
 
 export class QueryTrackDto {
     readonly title?: string;

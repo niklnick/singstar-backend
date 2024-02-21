@@ -1,7 +1,7 @@
 import { Album } from "src/albums/entities/album.entity";
 import { Artist } from "src/artists/entities/artist.entity";
-import { Genre } from "src/enums/genre.enum";
-import { Language } from "src/enums/language.enum";
+import { Genre } from "src/tracks/enums/genre.enum";
+import { Language } from "src/tracks/enums/language.enum";
 import { Playlist } from "src/playlists/entities/playlist.entity";
 import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
