@@ -24,8 +24,10 @@ export class TracksService {
         language: query.language
       },
       relations: {
+        album: true,
         artist: true,
-        album: true
+        featuredArtists: true,
+        playlists: true
       }
     });
   }
@@ -34,8 +36,10 @@ export class TracksService {
     const track: Track = await this.tracksRepository.findOne({
       where: { id: id },
       relations: {
+        album: true,
         artist: true,
-        album: true
+        featuredArtists: true,
+        playlists: true
       }
     });
 
@@ -48,8 +52,10 @@ export class TracksService {
     const track: Track = await this.tracksRepository.findOne({
       where: { id: id },
       relations: {
+        album: true,
         artist: true,
-        album: true
+        featuredArtists: true,
+        playlists: true
       }
     });
 
@@ -62,8 +68,10 @@ export class TracksService {
     const track: Track = await this.tracksRepository.findOne({
       where: { id: id },
       relations: {
+        album: true,
         artist: true,
-        album: true
+        featuredArtists: true,
+        playlists: true
       }
     });
 

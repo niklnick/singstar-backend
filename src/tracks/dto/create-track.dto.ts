@@ -8,10 +8,13 @@ export class CreateTrackDto {
     readonly language: Language;
     readonly duration: string;
     readonly releaseDate: Date;
-    readonly artist: {
-        readonly id: string;
-    };
     readonly album: {
         readonly id: string;
     };
+    readonly artist: {
+        readonly id: string;
+    };
+    readonly featuredArtists: {
+        readonly id: string;
+    }[];
 }

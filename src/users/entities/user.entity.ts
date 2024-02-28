@@ -23,33 +23,33 @@ export class User {
 
     @ManyToMany(() => Artist)
     @JoinTable({
-        name: 'user_artist_favorite',
+        name: 'user_artist_like',
         joinColumn: { name: 'user_id' },
         inverseJoinColumn: { name: 'artist_id' }
     })
-    favoriteArtists: Artist[];
+    likedArtists: Artist[];
 
     @ManyToMany(() => Album)
     @JoinTable({
-        name: 'user_album_favorite',
+        name: 'user_album_like',
         joinColumn: { name: 'user_id' },
         inverseJoinColumn: { name: 'album_id' }
     })
-    favoriteAlbums: Album[];
+    likedAlbums: Album[];
 
     @ManyToMany(() => Track)
     @JoinTable({
-        name: 'user_track_favorite',
+        name: 'user_track_like',
         joinColumn: { name: 'user_id' },
         inverseJoinColumn: { name: 'track_id' }
     })
-    favoriteTracks: Track[];
+    likedTracks: Track[];
 
     @ManyToMany(() => Playlist)
     @JoinTable({
-        name: 'user_playlist_favorite',
+        name: 'user_playlist_like',
         joinColumn: { name: 'user_id' },
         inverseJoinColumn: { name: 'playlist_id' }
     })
-    favoritePlaylists: Playlist[];
+    likedPlaylists: Playlist[];
 }

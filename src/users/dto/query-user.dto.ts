@@ -1,8 +1,8 @@
 export class QueryUserDto {
     relations?: {
-        favoriteArtists?: boolean;
-        favoriteAlbums?: boolean;
-        favoriteTracks?: boolean;
-        favoritePlaylists?: boolean;
+        likedArtists?: boolean;
+        likedAlbums?: boolean;
+        likedTracks?: boolean;
+        likedPlaylists?: boolean;
     };
 }

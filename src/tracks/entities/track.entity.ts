@@ -1,9 +1,9 @@
 import { Album } from "src/albums/entities/album.entity";
 import { Artist } from "src/artists/entities/artist.entity";
+import { Playlist } from "src/playlists/entities/playlist.entity";
 import { Genre } from "src/tracks/enums/genre.enum";
 import { Language } from "src/tracks/enums/language.enum";
-import { Playlist } from "src/playlists/entities/playlist.entity";
-import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Track {
@@ -28,13 +28,21 @@ export class Track {
     @Column('date', { name: 'release_date' })
     releaseDate: Date;
 
+    @ManyToOne(() => Album, (album: Album) => album.tracks)
+    @JoinColumn({ name: 'album_id' })
+    album: Album;
+
     @ManyToOne(() => Artist, (artist: Artist) => artist.tracks)
     @JoinColumn({ name: 'artist_id' })
     artist: Artist;
 
-    @ManyToOne(() => Album, (album: Album) => album.tracks)
-    @JoinColumn({ name: 'album_id' })
-    album: Album;
+    @ManyToMany(() => Artist, (artist: Artist) => artist.featuredTracks)
+    @JoinTable({
+        name: 'track_artist_feature',
+        joinColumn: { name: 'track_id' },
+        inverseJoinColumn: { name: 'artist_id' }
+    })
+    featuredArtists: Artist[];
 
     @ManyToMany(() => Playlist, (playlist: Playlist) => playlist.tracks)
     playlists: Playlist[];
