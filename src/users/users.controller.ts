@@ -37,49 +37,49 @@ export class UsersController {
 
   @Post(':id/artists/:artist_id')
   @UseGuards(AuthGuard)
-  async addArtist(@Param('id') id: string, @Param('artist_id') artistId: string): Promise<Artist[]> {
-    return await this.usersService.addArtist(id, artistId);
+  async likeArtist(@Param('id') id: string, @Param('artist_id') artistId: string): Promise<Artist[]> {
+    return await this.usersService.likeArtist(id, artistId);
   }
 
   @Delete(':id/artists/:artist_id')
   @UseGuards(AuthGuard)
-  async removeArtist(@Param('id') id: string, @Param('artist_id') artistId: string): Promise<Artist[]> {
-    return this.usersService.removeArtist(id, artistId);
+  async unlikeArtist(@Param('id') id: string, @Param('artist_id') artistId: string): Promise<Artist[]> {
+    return this.usersService.unlikeArtist(id, artistId);
   }
 
   @Post(':id/albums/:album_id')
   @UseGuards(AuthGuard)
-  async addAlbum(@Param('id') id: string, @Param('album_id') albumId: string): Promise<Album[]> {
-    return await this.usersService.addAlbum(id, albumId);
+  async likeAlbum(@Param('id') id: string, @Param('album_id') albumId: string): Promise<Album[]> {
+    return await this.usersService.likeAlbum(id, albumId);
   }
 
   @Delete(':id/albums/:album_id')
   @UseGuards(AuthGuard)
-  async removeAlbum(@Param('id') id: string, @Param('album_id') albumId: string): Promise<Album[]> {
-    return this.usersService.removeAlbum(id, albumId);
+  async unlikeAlbum(@Param('id') id: string, @Param('album_id') albumId: string): Promise<Album[]> {
+    return this.usersService.unlikeAlbum(id, albumId);
   }
 
   @Post(':id/tracks/:track_id')
   @UseGuards(AuthGuard)
-  async addTrack(@Param('id') id: string, @Param('track_id') trackId: string): Promise<Track[]> {
-    return await this.usersService.addTrack(id, trackId);
+  async likeTrack(@Param('id') id: string, @Param('track_id') trackId: string): Promise<Track[]> {
+    return await this.usersService.likeTrack(id, trackId);
   }
 
   @Delete(':id/tracks/:track_id')
   @UseGuards(AuthGuard)
-  async removeTrack(@Param('id') id: string, @Param('track_id') trackId: string): Promise<Track[]> {
-    return this.usersService.removeTrack(id, trackId);
+  async unlikeTrack(@Param('id') id: string, @Param('track_id') trackId: string): Promise<Track[]> {
+    return this.usersService.unlikeTrack(id, trackId);
   }
 
   @Post(':id/playlists/:playlist_id')
   @UseGuards(AuthGuard)
-  async addPlaylist(@Param('id') id: string, @Param('playlist_id') playlistId: string): Promise<Playlist[]> {
-    return await this.usersService.addPlaylist(id, playlistId);
+  async likePlaylist(@Param('id') id: string, @Param('playlist_id') playlistId: string): Promise<Playlist[]> {
+    return await this.usersService.likePlaylist(id, playlistId);
   }
 
   @Delete(':id/playlists/:playlist_id')
   @UseGuards(AuthGuard)
-  async removePlayist(@Param('id') id: string, @Param('playlist_id') playlistId: string): Promise<Playlist[]> {
-    return this.usersService.removePlaylist(id, playlistId);
+  async unlikePlaylist(@Param('id') id: string, @Param('playlist_id') playlistId: string): Promise<Playlist[]> {
+    return this.usersService.unlikePlaylist(id, playlistId);
   }
 }

@@ -52,7 +52,7 @@ export class UsersService {
     return this.usersRepository.remove(user);
   }
 
-  async addArtist(id: string, artistId: string): Promise<Artist[]> {
+  async likeArtist(id: string, artistId: string): Promise<Artist[]> {
     const user: User = await this.findOne(id, { relations: { likedArtists: true } });
 
     const artist: Artist = await this.dataSource.getRepository(Artist).findOne({ where: { id: artistId } });
@@ -65,7 +65,7 @@ export class UsersService {
     return (await this.usersRepository.save(user)).likedArtists;
   }
 
-  async removeArtist(id: string, artistId: string): Promise<Artist[]> {
+  async unlikeArtist(id: string, artistId: string): Promise<Artist[]> {
     const user: User = await this.findOne(id, { relations: { likedArtists: true } });
 
     const artist: Artist = await this.dataSource.getRepository(Artist).findOne({ where: { id: artistId } });
@@ -79,7 +79,7 @@ export class UsersService {
     })).likedArtists;
   }
 
-  async addAlbum(id: string, albumId: string): Promise<Album[]> {
+  async likeAlbum(id: string, albumId: string): Promise<Album[]> {
     const user: User = await this.findOne(id, { relations: { likedAlbums: true } });
 
     const album: Album = await this.dataSource.getRepository(Album).findOne({ where: { id: albumId } });
@@ -92,7 +92,7 @@ export class UsersService {
     return (await this.usersRepository.save(user)).likedAlbums;
   }
 
-  async removeAlbum(id: string, albumId: string): Promise<Album[]> {
+  async unlikeAlbum(id: string, albumId: string): Promise<Album[]> {
     const user: User = await this.findOne(id, { relations: { likedAlbums: true } });
 
     const album: Album = await this.dataSource.getRepository(Album).findOne({ where: { id: albumId } });
@@ -106,7 +106,7 @@ export class UsersService {
     })).likedAlbums;
   }
 
-  async addTrack(id: string, trackId: string): Promise<Track[]> {
+  async likeTrack(id: string, trackId: string): Promise<Track[]> {
     const user: User = await this.findOne(id, { relations: { likedTracks: true } });
 
     const track: Track = await this.dataSource.getRepository(Track).findOne({ where: { id: trackId } });
@@ -119,7 +119,7 @@ export class UsersService {
     return (await this.usersRepository.save(user)).likedTracks;
   }
 
-  async removeTrack(id: string, trackId: string): Promise<Track[]> {
+  async unlikeTrack(id: string, trackId: string): Promise<Track[]> {
     const user: User = await this.findOne(id, { relations: { likedTracks: true } });
 
     const track: Track = await this.dataSource.getRepository(Track).findOne({ where: { id: trackId } });
@@ -133,7 +133,7 @@ export class UsersService {
     })).likedTracks;
   }
 
-  async addPlaylist(id: string, playlistId: string): Promise<Playlist[]> {
+  async likePlaylist(id: string, playlistId: string): Promise<Playlist[]> {
     const user: User = await this.findOne(id, { relations: { likedPlaylists: true } });
 
     const playlist: Playlist = await this.dataSource.getRepository(Playlist).findOne({ where: { id: playlistId } });
@@ -146,7 +146,7 @@ export class UsersService {
     return (await this.usersRepository.save(user)).likedPlaylists;
   }
 
-  async removePlaylist(id: string, playlistId: string): Promise<Playlist[]> {
+  async unlikePlaylist(id: string, playlistId: string): Promise<Playlist[]> {
     const user: User = await this.findOne(id, { relations: { likedPlaylists: true } });
 
     const playlist: Playlist = await this.dataSource.getRepository(Playlist).findOne({ where: { id: playlistId } });
