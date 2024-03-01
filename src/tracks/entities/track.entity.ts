@@ -13,7 +13,7 @@ export class Track {
     @Column()
     title: string;
 
-    @Column({ name: 'cover_url' })
+    @Column({ name: 'cover_url', nullable: true })
     coverUrl: string;
 
     @Column('enum', { array: true, enum: Genre })
@@ -22,13 +22,16 @@ export class Track {
     @Column('enum', { enum: Language })
     language: Language;
 
+    @Column({ default: false })
+    explicit: boolean;
+
     @Column('interval')
     duration: string;
 
     @Column('date', { name: 'release_date' })
     releaseDate: Date;
 
-    @ManyToOne(() => Album, (album: Album) => album.tracks)
+    @ManyToOne(() => Album, (album: Album) => album.tracks, { nullable: true })
     @JoinColumn({ name: 'album_id' })
     album: Album;
 
