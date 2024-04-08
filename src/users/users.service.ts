@@ -52,31 +52,6 @@ export class UsersService {
     return await this.usersRepository.remove(user);
   }
 
-  async likeArtist(id: string, artistId: string): Promise<Artist[]> {
-    const user: User | null = await this.findOne(id, { relations: { likedArtists: true } });
-    const artist: Artist | null = await this.dataSource.getRepository(Artist).findOne({ where: { id: artistId } });
-
-    if (!artist) throw new NotFoundException();
-    if (user.likedArtists.find((a: Artist) => a.id === artist.id)) throw new ConflictException();
-
-    user.likedArtists.push(artist);
-
-    return (await this.usersRepository.save(user)).likedArtists;
-  }
-
-  async unlikeArtist(id: string, artistId: string): Promise<Artist[]> {
-    const user: User | null = await this.findOne(id, { relations: { likedArtists: true } });
-    const artist: Artist | null = await this.dataSource.getRepository(Artist).findOne({ where: { id: artistId } });
-
-    if (!artist) throw new NotFoundException();
-    if (!user.likedArtists.find((a: Artist) => a.id === artist.id)) throw new ConflictException();
-
-    return (await this.usersRepository.save({
-      ...user,
-      likedArtists: user.likedArtists.filter((a: Artist) => a.id !== artist.id)
-    })).likedArtists;
-  }
-
   async likeAlbum(id: string, albumId: string): Promise<Album[]> {
     const user: User | null = await this.findOne(id, { relations: { likedAlbums: true } });
     const album: Album | null = await this.dataSource.getRepository(Album).findOne({ where: { id: albumId } });
@@ -102,29 +77,29 @@ export class UsersService {
     })).likedAlbums;
   }
 
-  async likeTrack(id: string, trackId: string): Promise<Track[]> {
-    const user: User | null = await this.findOne(id, { relations: { likedTracks: true } });
-    const track: Track | null = await this.dataSource.getRepository(Track).findOne({ where: { id: trackId } });
+  async likeArtist(id: string, artistId: string): Promise<Artist[]> {
+    const user: User | null = await this.findOne(id, { relations: { likedArtists: true } });
+    const artist: Artist | null = await this.dataSource.getRepository(Artist).findOne({ where: { id: artistId } });
 
-    if (!track) throw new NotFoundException();
-    if (user.likedTracks.find((t: Track) => t.id === track.id)) throw new ConflictException();
+    if (!artist) throw new NotFoundException();
+    if (user.likedArtists.find((a: Artist) => a.id === artist.id)) throw new ConflictException();
 
-    user.likedTracks.push(track);
+    user.likedArtists.push(artist);
 
-    return (await this.usersRepository.save(user)).likedTracks;
+    return (await this.usersRepository.save(user)).likedArtists;
   }
 
-  async unlikeTrack(id: string, trackId: string): Promise<Track[]> {
-    const user: User | null = await this.findOne(id, { relations: { likedTracks: true } });
-    const track: Track | null = await this.dataSource.getRepository(Track).findOne({ where: { id: trackId } });
+  async unlikeArtist(id: string, artistId: string): Promise<Artist[]> {
+    const user: User | null = await this.findOne(id, { relations: { likedArtists: true } });
+    const artist: Artist | null = await this.dataSource.getRepository(Artist).findOne({ where: { id: artistId } });
 
-    if (!track) throw new NotFoundException();
-    if (!user.likedTracks.find((t: Track) => t.id === track.id)) throw new ConflictException();
+    if (!artist) throw new NotFoundException();
+    if (!user.likedArtists.find((a: Artist) => a.id === artist.id)) throw new ConflictException();
 
     return (await this.usersRepository.save({
       ...user,
-      likedTracks: user.likedTracks.filter((t: Track) => t.id !== track.id)
-    })).likedTracks;
+      likedArtists: user.likedArtists.filter((a: Artist) => a.id !== artist.id)
+    })).likedArtists;
   }
 
   async likePlaylist(id: string, playlistId: string): Promise<Playlist[]> {
@@ -150,5 +125,30 @@ export class UsersService {
       ...user,
       likedPlaylists: user.likedPlaylists.filter((p: Playlist) => p.id !== playlist.id)
     })).likedPlaylists;
+  }
+
+  async likeTrack(id: string, trackId: string): Promise<Track[]> {
+    const user: User | null = await this.findOne(id, { relations: { likedTracks: true } });
+    const track: Track | null = await this.dataSource.getRepository(Track).findOne({ where: { id: trackId } });
+
+    if (!track) throw new NotFoundException();
+    if (user.likedTracks.find((t: Track) => t.id === track.id)) throw new ConflictException();
+
+    user.likedTracks.push(track);
+
+    return (await this.usersRepository.save(user)).likedTracks;
+  }
+
+  async unlikeTrack(id: string, trackId: string): Promise<Track[]> {
+    const user: User | null = await this.findOne(id, { relations: { likedTracks: true } });
+    const track: Track | null = await this.dataSource.getRepository(Track).findOne({ where: { id: trackId } });
+
+    if (!track) throw new NotFoundException();
+    if (!user.likedTracks.find((t: Track) => t.id === track.id)) throw new ConflictException();
+
+    return (await this.usersRepository.save({
+      ...user,
+      likedTracks: user.likedTracks.filter((t: Track) => t.id !== track.id)
+    })).likedTracks;
   }
 }
