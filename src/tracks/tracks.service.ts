@@ -26,14 +26,13 @@ export class TracksService {
       relations: {
         album: true,
         artist: true,
-        featuredArtists: true,
-        playlists: true
+        featuredArtists: true
       }
     });
   }
 
   async findOne(id: string): Promise<Track> {
-    const track: Track = await this.tracksRepository.findOne({
+    const track: Track | null = await this.tracksRepository.findOne({
       where: { id: id },
       relations: {
         album: true,
@@ -49,13 +48,12 @@ export class TracksService {
   }
 
   async update(id: string, updateTrackDto: UpdateTrackDto): Promise<Track> {
-    const track: Track = await this.tracksRepository.findOne({
+    const track: Track | null = await this.tracksRepository.findOne({
       where: { id: id },
       relations: {
         album: true,
         artist: true,
-        featuredArtists: true,
-        playlists: true
+        featuredArtists: true
       }
     });
 
@@ -65,18 +63,17 @@ export class TracksService {
   }
 
   async remove(id: string): Promise<Track> {
-    const track: Track = await this.tracksRepository.findOne({
+    const track: Track | null = await this.tracksRepository.findOne({
       where: { id: id },
       relations: {
         album: true,
         artist: true,
-        featuredArtists: true,
-        playlists: true
+        featuredArtists: true
       }
     });
 
     if (!track) throw new NotFoundException();
 
-    return this.tracksRepository.remove(track);
+    return await this.tracksRepository.remove(track);
   }
 }

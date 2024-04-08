@@ -32,16 +32,16 @@ export class PlaylistsController {
 
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<Playlist> {
-    return this.playlistsService.remove(id);
+    return await this.playlistsService.remove(id);
   }
 
   @Patch(':id/tracks/:track_id')
   async addTrack(@Param('id') id: string, @Param('track_id') trackId: string): Promise<Track[]> {
-    return this.playlistsService.addTrack(id, trackId);
+    return await this.playlistsService.addTrack(id, trackId);
   }
 
   @Delete(':id/tracks/:track_id')
   async removeTrack(@Param('id') id: string, @Param('track_id') trackId: string): Promise<Track[]> {
-    return this.playlistsService.removeTrack(id, trackId);
+    return await this.playlistsService.removeTrack(id, trackId);
   }
 }

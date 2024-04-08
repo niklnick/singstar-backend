@@ -31,6 +31,6 @@ export class TracksController {
 
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<Track> {
-    return this.tracksService.remove(id);
+    return await this.tracksService.remove(id);
   }
 }

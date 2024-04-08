@@ -23,7 +23,7 @@ export class ArtistsService {
   }
 
   async findOne(id: string): Promise<Artist> {
-    const artist: Artist = await this.artistsRepository.findOne({
+    const artist: Artist | null = await this.artistsRepository.findOne({
       where: { id: id },
       relations: {
         albums: true,
@@ -38,7 +38,7 @@ export class ArtistsService {
   }
 
   async update(id: string, updateArtistDto: UpdateArtistDto): Promise<Artist> {
-    const artist: Artist = await this.artistsRepository.findOne({ where: { id: id } });
+    const artist: Artist | null = await this.artistsRepository.findOne({ where: { id: id } });
 
     if (!artist) throw new NotFoundException();
 
@@ -46,10 +46,10 @@ export class ArtistsService {
   }
 
   async remove(id: string): Promise<Artist> {
-    const artist: Artist = await this.artistsRepository.findOne({ where: { id: id } });
+    const artist: Artist | null = await this.artistsRepository.findOne({ where: { id: id } });
 
     if (!artist) throw new NotFoundException();
 
-    return this.artistsRepository.remove(artist);
+    return await this.artistsRepository.remove(artist);
   }
 }

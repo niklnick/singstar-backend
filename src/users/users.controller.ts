@@ -32,7 +32,7 @@ export class UsersController {
   @Delete(':id')
   @UseGuards(AuthGuard)
   async remove(@Param('id') id: string): Promise<User> {
-    return this.usersService.remove(id);
+    return await this.usersService.remove(id);
   }
 
   @Post(':id/artists/:artist_id')
@@ -44,7 +44,7 @@ export class UsersController {
   @Delete(':id/artists/:artist_id')
   @UseGuards(AuthGuard)
   async unlikeArtist(@Param('id') id: string, @Param('artist_id') artistId: string): Promise<Artist[]> {
-    return this.usersService.unlikeArtist(id, artistId);
+    return await this.usersService.unlikeArtist(id, artistId);
   }
 
   @Post(':id/albums/:album_id')
@@ -56,7 +56,7 @@ export class UsersController {
   @Delete(':id/albums/:album_id')
   @UseGuards(AuthGuard)
   async unlikeAlbum(@Param('id') id: string, @Param('album_id') albumId: string): Promise<Album[]> {
-    return this.usersService.unlikeAlbum(id, albumId);
+    return await this.usersService.unlikeAlbum(id, albumId);
   }
 
   @Post(':id/tracks/:track_id')
@@ -68,7 +68,7 @@ export class UsersController {
   @Delete(':id/tracks/:track_id')
   @UseGuards(AuthGuard)
   async unlikeTrack(@Param('id') id: string, @Param('track_id') trackId: string): Promise<Track[]> {
-    return this.usersService.unlikeTrack(id, trackId);
+    return await this.usersService.unlikeTrack(id, trackId);
   }
 
   @Post(':id/playlists/:playlist_id')
@@ -80,6 +80,6 @@ export class UsersController {
   @Delete(':id/playlists/:playlist_id')
   @UseGuards(AuthGuard)
   async unlikePlaylist(@Param('id') id: string, @Param('playlist_id') playlistId: string): Promise<Playlist[]> {
-    return this.usersService.unlikePlaylist(id, playlistId);
+    return await this.usersService.unlikePlaylist(id, playlistId);
   }
 }

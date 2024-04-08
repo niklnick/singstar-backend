@@ -24,12 +24,9 @@ export class AlbumsService {
   }
 
   async findOne(id: string): Promise<Album> {
-    const album: Album = await this.albumsRepository.findOne({
+    const album: Album | null = await this.albumsRepository.findOne({
       where: { id: id },
-      relations: {
-        artist: true,
-        tracks: true
-      }
+      relations: { artist: true, tracks: true }
     });
 
     if (!album) throw new NotFoundException();
@@ -38,7 +35,7 @@ export class AlbumsService {
   }
 
   async update(id: string, updateAlbumDto: UpdateAlbumDto): Promise<Album> {
-    const album: Album = await this.albumsRepository.findOne({
+    const album: Album | null = await this.albumsRepository.findOne({
       where: { id: id },
       relations: { artist: true }
     });
@@ -49,13 +46,13 @@ export class AlbumsService {
   }
 
   async remove(id: string): Promise<Album> {
-    const album: Album = await this.albumsRepository.findOne({
+    const album: Album | null = await this.albumsRepository.findOne({
       where: { id: id },
       relations: { artist: true }
     });
 
     if (!album) throw new NotFoundException();
 
-    return this.albumsRepository.remove(album);
+    return await this.albumsRepository.remove(album);
   }
 }

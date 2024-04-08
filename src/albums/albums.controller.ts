@@ -31,6 +31,6 @@ export class AlbumsController {
 
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<Album> {
-    return this.albumsService.remove(id);
+    return await this.albumsService.remove(id);
   }
 }

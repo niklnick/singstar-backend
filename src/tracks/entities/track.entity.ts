@@ -14,7 +14,7 @@ export class Track {
     title: string;
 
     @Column({ name: 'cover_url', nullable: true })
-    coverUrl: string;
+    coverUrl?: string | null;
 
     @Column('enum', { array: true, enum: Genre })
     genres: Genre[];
@@ -33,7 +33,7 @@ export class Track {
 
     @ManyToOne(() => Album, (album: Album) => album.tracks)
     @JoinColumn({ name: 'album_id' })
-    album: Album;
+    album?: Album | null;
 
     @ManyToOne(() => Artist, (artist: Artist) => artist.tracks, { nullable: false, onDelete: 'CASCADE' })
     @JoinColumn({ name: 'artist_id' })

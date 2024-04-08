@@ -34,7 +34,7 @@ export class PlaylistsService {
   }
 
   async findOne(id: string): Promise<Playlist> {
-    const playlist: Playlist = await this.playlistsRepository.findOne({
+    const playlist: Playlist | null = await this.playlistsRepository.findOne({
       where: { id: id },
       relations: {
         creator: true,
@@ -48,7 +48,7 @@ export class PlaylistsService {
   }
 
   async update(id: string, updatePlaylistDto: UpdatePlaylistDto): Promise<Playlist> {
-    const playlist: Playlist = await this.playlistsRepository.findOne({
+    const playlist: Playlist | null = await this.playlistsRepository.findOne({
       where: { id: id },
       relations: {
         creator: true,
@@ -62,7 +62,7 @@ export class PlaylistsService {
   }
 
   async remove(id: string): Promise<Playlist> {
-    const playlist: Playlist = await this.playlistsRepository.findOne({
+    const playlist: Playlist | null = await this.playlistsRepository.findOne({
       where: { id: id },
       relations: {
         creator: true,
@@ -72,11 +72,11 @@ export class PlaylistsService {
 
     if (!playlist) throw new NotFoundException();
 
-    return this.playlistsRepository.remove(playlist);
+    return await this.playlistsRepository.remove(playlist);
   }
 
   async addTrack(id: string, trackId: string): Promise<Track[]> {
-    const playlist: Playlist = await this.findOne(id);
+    const playlist: Playlist | null = await this.findOne(id);
 
     const track: Track = await this.dataSource.getRepository(Track).findOne({ where: { id: trackId } });
 
@@ -89,7 +89,7 @@ export class PlaylistsService {
   }
 
   async removeTrack(id: string, trackId: string): Promise<Track[]> {
-    const playlist: Playlist = await this.findOne(id);
+    const playlist: Playlist | null = await this.findOne(id);
 
     const track: Track = await this.dataSource.getRepository(Track).findOne({ where: { id: trackId } });
 

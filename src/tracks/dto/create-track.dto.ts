@@ -9,13 +9,7 @@ export class CreateTrackDto {
     readonly explicit?: boolean;
     readonly duration: string;
     readonly releaseDate: Date;
-    readonly album?: {
-        readonly id: string;
-    };
-    readonly artist: {
-        readonly id: string;
-    };
-    readonly featuredArtists?: {
-        readonly id: string;
-    }[];
+    readonly album?: { readonly id: string; };
+    readonly artist: { readonly id: string; };
+    readonly featuredArtists?: { readonly id: string; }[];
 }
