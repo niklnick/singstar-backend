@@ -13,7 +13,7 @@ export class Playlist {
     @CreateDateColumn()
     createDate: Date;
 
-    @ManyToOne(() => User, (user: User) => user.createdPlaylists)
+    @ManyToOne(() => User, (user: User) => user.createdPlaylists, { nullable: false, onDelete: 'CASCADE' })
     creator: User;
 
     @ManyToMany(() => Track, (track: Track) => track.playlists)

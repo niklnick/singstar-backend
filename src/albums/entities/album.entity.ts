@@ -16,7 +16,7 @@ export class Album {
     @Column('date', { name: 'release_date' })
     releaseDate: Date;
 
-    @ManyToOne(() => Artist, (artist: Artist) => artist.albums)
+    @ManyToOne(() => Artist, (artist: Artist) => artist.albums, { nullable: false, onDelete: 'CASCADE' })
     @JoinColumn({ name: 'artist_id' })
     artist: Artist;
 

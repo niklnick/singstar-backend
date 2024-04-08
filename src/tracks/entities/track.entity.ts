@@ -31,11 +31,11 @@ export class Track {
     @Column('date', { name: 'release_date' })
     releaseDate: Date;
 
-    @ManyToOne(() => Album, (album: Album) => album.tracks, { nullable: true })
+    @ManyToOne(() => Album, (album: Album) => album.tracks)
     @JoinColumn({ name: 'album_id' })
     album: Album;
 
-    @ManyToOne(() => Artist, (artist: Artist) => artist.tracks)
+    @ManyToOne(() => Artist, (artist: Artist) => artist.tracks, { nullable: false, onDelete: 'CASCADE' })
     @JoinColumn({ name: 'artist_id' })
     artist: Artist;
 
